@@ -4,6 +4,9 @@ from firebase_admin import credentials, db
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+# Memoria temporal de preguntas y respuestas
+memoria = {}
+
 # Firebase
 cred = credentials.Certificate("credenciales.json")
 firebase_admin.initialize_app(cred, {
@@ -80,6 +83,21 @@ def mensaje():
         return jsonify({"respuesta": "No sé cómo responder a eso. Enséñame."})
     return jsonify({"respuesta": respuesta})
 
+@app.route('/ensenar', methods=["POST"])
+def ensenar():
+    data = request.json
+    nueva_pregunta = data.get("pregunta")
+    nueva_respuesta = data.get("respuesta")
+
+    if not nueva_pregunta or not nueva_respuesta:
+        return jsonify({"ok": False, "error": "Faltan datos"})
+
+    preguntas.append(nueva_pregunta)
+    respuestas.append(nueva_respuesta)
+    guardar_aprendizaje(preguntas, respuestas)
+    actualizar_modelo()
+
+    return jsonify({"ok": True, "mensaje": "¡Aprendí algo nuevo!"})
 
 if __name__ == '__main__':
     app.run()
