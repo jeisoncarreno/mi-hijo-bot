@@ -14,9 +14,9 @@ if not cred_json:
     raise ValueError(
         "Faltan las credenciales en la variable de entorno GOOGLE_CREDENTIALS_JSON")
 
-cred_dict = json.loads(os.environ["GOOGLE_CREDENTIALS_JSON"])
+# Convertir el JSON en string a diccionario
+cred_dict = json.loads(cred_json)
 cred = credentials.Certificate(cred_dict)
-
 
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://mihijobotjason-default-rtdb.firebaseio.com/'
