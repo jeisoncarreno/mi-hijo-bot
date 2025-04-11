@@ -5,7 +5,19 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Firebase
-cred = credentials.Certificate("credenciales.json")
+import json
+import os
+
+# Cargar las credenciales desde la variable de entorno
+cred_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
+if not cred_json:
+    raise ValueError(
+        "Faltan las credenciales en la variable de entorno GOOGLE_CREDENTIALS_JSON")
+
+cred_dict = json.loads(os.environ["GOOGLE_CREDENTIALS_JSON"])
+cred = credentials.Certificate(cred_dict)
+
+
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://mihijobotjason-default-rtdb.firebaseio.com/'
 })
@@ -82,4 +94,4 @@ def mensaje():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
