@@ -1,0 +1,25 @@
+{
+    "aprendizaje": {
+        "preguntas": [
+            "hola",
+            "como estas?",
+            "que te gusta?"
+        ],
+        "respuestas": [
+            "hola",
+            "bien gracias, y tú?",
+            "me gusta aprender cosas nuevas contigo!"
+        ]
+    },
+    "memoria": {
+        "nombre": "Jason",
+        "edad": "15",
+        "último_tema": "que te gusta?",
+        "sentimiento": "emocionado"
+    },
+    "emociones_por_tema": {
+        "vacaciones": "feliz",
+        "escuela": "estresado",
+        "familia": "seguro"
+    }
+}
