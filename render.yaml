@@ -1,7 +1,6 @@
 services:
   - type: web
-    name: mihijobot
+    name: mi-hijo-bot
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
-    autoDeploy: true
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
