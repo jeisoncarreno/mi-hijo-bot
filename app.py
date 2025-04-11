@@ -15,9 +15,14 @@ import os
 import json
 from firebase_admin import credentials
 
-firebase_json = os.getenv('GOOGLE_CREDENTIALS_JSON')
-firebase_dict = json.loads(firebase_json)
-cred = credentials.Certificate(firebase_dict)
+import os
+import json
+from firebase_admin import credentials
+
+firebase_cred_json = os.environ.get("GOOGLE_CREDENTIALS_JSON")
+cred_dict = json.loads(firebase_cred_json)
+cred = credentials.Certificate(cred_dict)
+firebase_admin.initialize_app(cred)
 
  firebase_admin.initialize_app(cred, {
       'databaseURL': 'https://mihijobotjason-default-rtdb.firebaseio.com/'
