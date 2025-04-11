@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Hijobot</title>
+    <style>
+        body { font-family: Arial; background: #f0f0f0; padding: 20px; }
+        #chat { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+        .mensaje { margin: 10px 0; }
+        .usuario { text-align: right; }
+        .bot { text-align: left; color: #444; }
+    </style>
+</head>
+<body>
+    <div id="chat">
+        <h2>Habla con tu hijo bot 🤖</h2>
+        <div id="mensajes"></div>
+        <input type="text" id="input" placeholder="Escribe algo..." style="width: 80%;">
+        <button onclick="enviar()">Enviar</button>
+    </div>
+
+    <script>
+        function enviar() {
+            let input = document.getElementById("input");
+            let texto = input.value;
+            if (!texto) return;
+
+            let div = document.getElementById("mensajes");
+            div.innerHTML += `<div class="mensaje usuario"><b>Tú:</b> ${texto}</div>`;
+            input.value = "";
+
+            fetch("/mensaje", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({mensaje: texto})
+            })
+            .then(res => res.json())
+            .then(data => {
+                div.innerHTML += `<div class="mensaje bot"><b>Bot:</b> ${data.respuesta}</div>`;
+                div.scrollTop = div.scrollHeight;
+            });
+        }
+    </script>
+</body>
+</html>
