@@ -16,7 +16,7 @@ firebase_admin.initialize_app(cred, {
 
 app = Flask(__name__)
 
-# Cargar memoria y aprendizaje
+# Cargar memoria yaprendizaje
 
 
 def cargar_memoria():
