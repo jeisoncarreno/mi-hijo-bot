@@ -3,6 +3,4 @@ firebase-admin==6.4.0
 gunicorn==21.2.0
 scikit-learn==1.4.1
 
-git add requirements.txt
-git commit -m "Corrijo requirements.txt"
-git push origin master
+
