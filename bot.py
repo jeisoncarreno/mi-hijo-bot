@@ -69,6 +69,8 @@ vectores_preguntas = vectorizador.fit_transform(
 def actualizar_modelo():
     global vectores_preguntas
     vectores_preguntas = vectorizador.fit_transform(preguntas)
+    print(f"Modelo actualizado con {len(preguntas)} preguntas.")
+
 
 
 def responder(mensaje):
@@ -83,7 +85,7 @@ def responder(mensaje):
     similitudes = cosine_similarity(mensaje_vector, vectores_preguntas)
     similitud_max = similitudes.max()
 
-    if similitud_max < 0.85:
+    if similitud_max < 0.7:
         return None
     else:
         indice_max = similitudes.argmax()
@@ -138,14 +140,12 @@ while True:
         continue
 
     # 😃 Verificar si el tema tiene emoción asociada
-    tema_actual = entrada.lower()
-    ref_emociones = db.reference("emociones_por_tema")
-    emociones_por_tema = ref_emociones.get()
-
-    if emociones_por_tema and tema_actual in emociones_por_tema:
+    if tema_actual in emociones_por_tema:
         emocion = emociones_por_tema[tema_actual]
-        print(
-            f"Bot: Sé que hablar de {tema_actual} te hace sentir {emocion}. 😊")
+        print(f"Bot: Sé que hablar de {tema_actual} te hace sentir {emocion}. 😊")
+    else:
+        print(f"Bot: No estoy seguro de cómo te hace sentir hablar de {tema_actual}. ¿Te gustaría contarme?")
+
 
     # 🤖 Procesar respuestas aprendidas
     respuesta = responder(entrada)
